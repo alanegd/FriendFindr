@@ -15,10 +15,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.estudiando.model.data.Person
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun PersonCard() {
+fun PersonCard(person: Person) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -26,14 +27,13 @@ fun PersonCard() {
     ) {
         Row(modifier = Modifier.padding(8.dp)) {
             GlideImage(
-                imageModel = { "https://upload.wikimedia.org/wikipedia/en/8/88/Winston_Smith.jpg"},
+                imageModel = { person.picture.large },
                 modifier = Modifier.size(100.dp)
             )
-            Column(modifier = Modifier.weight(1f).padding(start = 18.dp)) {
-                Text(text = "Winston")
-                Text(text = "Smith")
-                Text(text = "wsmith@gmail.com")
-                Text(text = "1234567890")
+            Column(modifier = Modifier.weight(1f).padding(18.dp, 0.dp)) {
+                Text(text = "Name: ${person.name.first} ${person.name.last}")
+                Text(text = "Email: ${person.email}")
+                Text(text = "Phone number: ${person.cell}")
             }
             IconButton(onClick = { }) {
                 Icon(Icons.Filled.Favorite, "Favorite", tint = MaterialTheme.colorScheme.primary)
@@ -41,5 +41,3 @@ fun PersonCard() {
         }
     }
 }
-
-

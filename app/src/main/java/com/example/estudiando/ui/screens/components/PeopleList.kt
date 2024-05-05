@@ -2,12 +2,14 @@ package com.example.estudiando.ui.screens.components
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import com.example.estudiando.model.data.Person
 
 @Composable
-fun PeopleList(numberOfPeople: Int) {
+fun PeopleList(people: MutableState<List<Person>>) {
     LazyColumn {
-        items(numberOfPeople) {
-            PersonCard()
+        items(people.value.size) { index ->
+            PersonCard(person = people.value[index])
         }
     }
 }

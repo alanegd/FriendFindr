@@ -15,7 +15,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,31 +23,42 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.estudiando.model.data.Person
+import com.example.estudiando.factories.PersonRepositoryFactory
 import com.example.estudiando.ui.screens.components.PeopleList
+
 
 @Composable
 fun PeopleScreen() {
+    val numberOfPeople = remember { mutableStateOf("") }
+    val people = remember { mutableStateOf(emptyList<Person>()) }
+
+    val personRepository = PersonRepositoryFactory.getPersonRepository()
+
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
                 .padding(paddingValues)
-                .fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val numberOfPeople = remember { mutableStateOf("") }
-            val numberOfPeopleToShow = remember { mutableIntStateOf(0) }
             Text(
                 text = "Personas",
                 modifier = Modifier.padding(16.dp),
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
             )
-            SearchBar(
-                numberOfPeople = numberOfPeople,
-                onShowPeopleClick = {
-                    numberOfPeopleToShow.intValue = numberOfPeople.value.toIntOrNull() ?: 0
+            SearchBar(numberOfPeople) {
+                val numberOfPeopleInt = numberOfPeople.value.toIntOrNull() ?: 0
+                if (numberOfPeopleInt > 0) {
+                    personRepository.getPersons(numberOfPeopleInt) { response ->
+                        people.value = response
+                    }
+                } else {
+                    people.value = emptyList()
                 }
-            )
-            PeopleList(numberOfPeople = numberOfPeopleToShow.intValue)
+            }
+            PeopleList(people)
         }
     }
 }
