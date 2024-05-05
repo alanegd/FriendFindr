@@ -27,6 +27,7 @@ fun FavoritesScreen() {
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
             )
+
         }
     }
 }

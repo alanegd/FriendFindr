@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    id("kotlin-kapt")
 }
 
 android {
@@ -65,15 +66,16 @@ dependencies {
     implementation("com.github.skydoves:landscapist-glide:1.3.7")
     implementation(libs.landscapist.glide)
     implementation(libs.gson)
-    implementation(libs.androidx.room.common)
-    implementation(libs.androidx.room.ktx)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
+    implementation(libs.androidx.room.runtime)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+    annotationProcessor(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }

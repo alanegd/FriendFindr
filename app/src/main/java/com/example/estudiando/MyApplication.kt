@@ -15,7 +15,7 @@ class MyApplication : Application() {
             return application as Application
         }
 
-        public fun getContext(): Context {
+        fun getContext(): Context {
             return getApplication().applicationContext
         }
     }

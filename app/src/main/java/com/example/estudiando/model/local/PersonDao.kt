@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.estudiando.model.data.Id
 
 @Dao
 interface PersonDao {
@@ -17,5 +18,5 @@ interface PersonDao {
     fun getAll(): List<PersonEntity>
 
     @Query("SELECT * FROM people WHERE id=:id")
-    fun getById(id: Int): PersonEntity?
+    fun getById(id: String): PersonEntity?
 }

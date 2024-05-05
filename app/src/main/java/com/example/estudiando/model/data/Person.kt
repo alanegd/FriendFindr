@@ -5,6 +5,8 @@ data class PersonResponse(
 )
 
 data class Person(
+    var isFavorite: Boolean? = false,
+
     val gender: String,
     val name: Name,
     val location: Location,

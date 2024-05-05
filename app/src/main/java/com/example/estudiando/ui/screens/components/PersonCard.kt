@@ -13,13 +13,20 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.estudiando.model.data.Person
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun PersonCard(person: Person) {
+    val isFavorite = remember {
+        mutableStateOf(person.isFavorite)
+    }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -30,13 +37,26 @@ fun PersonCard(person: Person) {
                 imageModel = { person.picture.large },
                 modifier = Modifier.size(100.dp)
             )
-            Column(modifier = Modifier.weight(1f).padding(18.dp, 0.dp)) {
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(18.dp, 0.dp)
+            ) {
                 Text(text = "Name: ${person.name.first} ${person.name.last}")
                 Text(text = "Email: ${person.email}")
                 Text(text = "Phone number: ${person.cell}")
             }
-            IconButton(onClick = { }) {
-                Icon(Icons.Filled.Favorite, "Favorite", tint = MaterialTheme.colorScheme.primary)
+            IconButton(onClick = {
+                isFavorite.value = !isFavorite.value!!
+                person.isFavorite = isFavorite.value
+            }) {
+                Icon(
+                    Icons.Filled.Favorite, "Favorite", tint = if (isFavorite.value == true) {
+                        MaterialTheme.colorScheme.primary
+                    } else {
+                        Color.Gray
+                    }
+                )
             }
         }
     }
