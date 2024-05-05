@@ -1,7 +1,13 @@
 package com.example.estudiando.model.data
 
+import com.google.gson.annotations.SerializedName
+
+data class PeopleWrapper(
+    @SerializedName("results")
+    val people: List<Person>
+)
+
 data class Person(
-    var isFavorite: Boolean = false,
     val gender: String,
     val name: Name,
     val location: Location,
@@ -11,6 +17,9 @@ data class Person(
     val registered: Registered,
     val phone: String,
     val cell: String,
+    /*
+    val id: Id,
+     */
     val id: Int,
     val picture: Picture,
     val nat: String

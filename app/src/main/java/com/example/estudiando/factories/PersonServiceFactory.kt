@@ -1,7 +1,8 @@
 package com.example.estudiando.factories
 
 import com.example.estudiando.model.remote.PersonService
-class PersonServiceFactory private constructor() {
+
+class PersonServiceFactory {
     companion object {
         private var personService: PersonService? = null
         fun getPersonService(): PersonService {
