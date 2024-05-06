@@ -18,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.example.estudiando.factories.PersonRepositoryFactory
 import com.example.estudiando.model.data.Person
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -27,6 +28,8 @@ fun PersonCard(person: Person) {
         mutableStateOf(person.isFavorite)
     }
 
+    val personRepository = PersonRepositoryFactory.getPersonRepository()
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -34,7 +37,7 @@ fun PersonCard(person: Person) {
     ) {
         Row(modifier = Modifier.padding(8.dp)) {
             GlideImage(
-                imageModel = { person.picture.large },
+                imageModel = { person.picture.thumbnail },
                 modifier = Modifier.size(100.dp)
             )
             Column(
@@ -47,7 +50,15 @@ fun PersonCard(person: Person) {
                 Text(text = "Phone number: ${person.cell}")
             }
             IconButton(onClick = {
-                isFavorite.value = !isFavorite.value!!
+                isFavorite.value = isFavorite.value?.not() ?: false
+                if (isFavorite.value == true) {
+                    personRepository.insertPerson(person)
+                    person.isFavorite = true
+                } else {
+                    personRepository.deletePerson(person)
+                    person.isFavorite = false
+                }
+
                 person.isFavorite = isFavorite.value
             }) {
                 Icon(

@@ -5,7 +5,6 @@ import com.example.estudiando.factories.PersonDaoFactory
 import com.example.estudiando.model.data.Person
 import com.example.estudiando.model.data.PersonResponse
 import com.example.estudiando.factories.PersonServiceFactory
-import com.example.estudiando.model.data.Id
 import com.example.estudiando.model.local.PersonDao
 import com.example.estudiando.model.local.PersonEntity
 import com.example.estudiando.model.remote.PersonService
@@ -28,7 +27,7 @@ class PersonRepository {
         return personDao.getById(id) != null
     }
 
-    fun getPersons(numberOfPersons: Int, callback: (List<Person>) -> Unit) {
+    fun getPeople(numberOfPersons: Int, callback: (List<Person>) -> Unit) {
         val call = personService.getPersons(numberOfPersons)
         call.enqueue(object : Callback<PersonResponse> {
             override fun onResponse(

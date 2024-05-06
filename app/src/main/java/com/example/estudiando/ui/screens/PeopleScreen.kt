@@ -51,7 +51,7 @@ fun PeopleScreen() {
             SearchBar(numberOfPeople) {
                 val numberOfPeopleInt = numberOfPeople.value.toIntOrNull() ?: 0
                 if (numberOfPeopleInt > 0) {
-                    personRepository.getPersons(numberOfPeopleInt) { response ->
+                    personRepository.getPeople(numberOfPeopleInt) { response ->
                         people.value = response
                     }
                 } else {
