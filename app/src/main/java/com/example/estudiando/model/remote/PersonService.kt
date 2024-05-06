@@ -7,5 +7,5 @@ import retrofit2.http.Query
 
 interface PersonService {
     @GET("api/")
-    fun getPersons(@Query("results") results: Int): Call<PersonResponse>
+    fun getPeople(@Query("results") results: Int): Call<PersonResponse>
 }

@@ -13,6 +13,11 @@ data class Person(
     val cell: String,
     val id: Id,
     val picture: Picture,
+    val location: Location
+)
+
+data class Location(
+    val city: String,
 )
 
 data class Name(

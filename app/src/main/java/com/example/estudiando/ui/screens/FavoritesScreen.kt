@@ -23,6 +23,10 @@ fun FavoritesScreen() {
 
     val personRepository = PersonRepositoryFactory.getPersonRepository()
 
+    personRepository.getFavoritePeople { favoritePeople ->
+        people.value = favoritePeople
+    }
+
     Scaffold { paddingValues ->
         Column(
             modifier = Modifier
@@ -37,9 +41,14 @@ fun FavoritesScreen() {
                 fontWeight = FontWeight.Bold
             )
 
-            Text(text = "Número de favoritos: ${people.value.size}", fontWeight = FontWeight.Bold, modifier = Modifier.padding(16.dp))
+            Text(
+                text = "Número de favoritos: ${people.value.size}",
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(16.dp)
+            )
 
             PeopleList(people = people)
         }
     }
 }
+
