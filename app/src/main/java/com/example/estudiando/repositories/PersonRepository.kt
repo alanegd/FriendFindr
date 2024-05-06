@@ -88,7 +88,7 @@ class PersonRepository {
             Person(
                 isFavorite = true,
                 gender = personEntity.gender,
-                name = Name("", personEntity.title, personEntity.first),
+                name = Name(personEntity.title, personEntity.first, ""),
                 email = "",
                 cell = "",
                 id = Id("", personEntity.id),

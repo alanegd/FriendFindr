@@ -23,7 +23,7 @@ import com.example.estudiando.model.data.Person
 import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
-fun PersonCard(person: Person) {
+fun PersonCard(person: Person, showAdditionalInfo: Boolean = false) {
     val isFavorite = remember {
         mutableStateOf(person.isFavorite)
     }
@@ -45,9 +45,17 @@ fun PersonCard(person: Person) {
                     .weight(1f)
                     .padding(18.dp, 0.dp)
             ) {
-                Text(text = "Name: ${person.name.first} ${person.name.last}")
-                Text(text = "Email: ${person.email}")
-                Text(text = "Phone number: ${person.cell}")
+                if (showAdditionalInfo) {
+                    Text(text = "Title: ${person.name.title}")
+                    Text(text = "Name: ${person.name.first}")
+                    Text(text = "Gender: ${person.gender}")
+                    Text(text = "City: ${person.location.city}")
+                }
+                else {
+                    Text(text = "Name: ${person.name.first} ${person.name.last}")
+                    Text(text = "Email: ${person.email}")
+                    Text(text = "Phone number: ${person.cell}")
+                }
             }
             IconButton(onClick = {
                 isFavorite.value = isFavorite.value?.not() ?: false

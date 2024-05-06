@@ -40,14 +40,7 @@ fun FavoritesScreen() {
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
             )
-
-            Text(
-                text = "Número de favoritos: ${people.value.size}",
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(16.dp)
-            )
-
-            PeopleList(people = people)
+            PeopleList(people = people, showAdditionalInfo = true)
         }
     }
 }

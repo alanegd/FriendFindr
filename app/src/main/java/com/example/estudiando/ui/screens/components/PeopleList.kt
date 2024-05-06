@@ -6,10 +6,11 @@ import androidx.compose.runtime.MutableState
 import com.example.estudiando.model.data.Person
 
 @Composable
-fun PeopleList(people: MutableState<List<Person>>) {
+fun PeopleList(people: MutableState<List<Person>>, showAdditionalInfo: Boolean = false) {
     LazyColumn {
         items(people.value.size) { index ->
-            PersonCard(person = people.value[index])
+            PersonCard(person = people.value[index], showAdditionalInfo = showAdditionalInfo)
         }
     }
 }
+
