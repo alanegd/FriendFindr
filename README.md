@@ -68,6 +68,8 @@ dependencies {
         └── ui
             ├── navigation
             ├── screens
+            |   └── components
+            |
             └── theme (Este viene por defecto)
 
 ```
