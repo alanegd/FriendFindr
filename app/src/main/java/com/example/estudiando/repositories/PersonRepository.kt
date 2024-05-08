@@ -82,6 +82,15 @@ class PersonRepository {
         })
     }
 
+    fun getPeopleByGender(gender: String, numberOfPeople: Int, callback: (List<Person>) -> Unit) {
+        getPeople(numberOfPeople) { people ->
+            val filteredPeople = people.filter { it.gender == gender }
+            callback(filteredPeople)
+        }
+    }
+
+
+
     fun getFavoritePeople(callback: (List<Person>) -> Unit) {
         val favoritePeople = personDao.getAll()
         callback(favoritePeople.map { personEntity ->

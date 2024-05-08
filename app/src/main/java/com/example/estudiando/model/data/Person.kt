@@ -16,6 +16,7 @@ data class Person(
     val location: Location
 )
 
+
 data class Location(
     val city: String,
 )

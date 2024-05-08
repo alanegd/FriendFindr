@@ -1,5 +1,6 @@
 package com.example.estudiando.ui.screens
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,6 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -25,6 +30,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.estudiando.model.data.Person
 import com.example.estudiando.factories.PersonRepositoryFactory
+import com.example.estudiando.repositories.PersonRepository
 import com.example.estudiando.ui.screens.components.PeopleList
 
 
@@ -34,6 +40,8 @@ fun PeopleScreen() {
     val people = remember { mutableStateOf(emptyList<Person>()) }
 
     val personRepository = PersonRepositoryFactory.getPersonRepository()
+
+    val endpoints = listOf("male", "female")
 
     Scaffold { paddingValues ->
         Column(
@@ -58,6 +66,12 @@ fun PeopleScreen() {
                     people.value = emptyList()
                 }
             }
+            DropDownMenu(
+                endpoints,
+                people,
+                numberOfPeople.value.toIntOrNull() ?: 0,
+                personRepository
+            )
             PeopleList(people)
         }
     }
@@ -94,6 +108,58 @@ fun SearchBar(numberOfPeople: MutableState<String>, onShowPeopleClick: () -> Uni
                 .padding(start = 16.dp)
         ) {
             Text("Show people")
+        }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DropDownMenu(
+    endpoints: List<String>,
+    person: MutableState<List<Person>>,
+    numberOfPeople: Int,
+    personRepository: PersonRepository
+) {
+
+    val expanded = remember {
+        mutableStateOf(false)
+    }
+    val selectedEndpoint = remember {
+        mutableStateOf("")
+    }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded.value,
+        onExpandedChange = { expanded.value = !expanded.value }
+    ) {
+        Box {
+            OutlinedTextField(
+                value = selectedEndpoint.value,
+                onValueChange = {},
+                readOnly = true,
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded.value) },
+                modifier = Modifier.menuAnchor()
+            )
+            ExposedDropdownMenu(
+                expanded = expanded.value,
+                onDismissRequest = { expanded.value = false }
+            ) {
+                endpoints.forEach { endpoint ->
+                    DropdownMenuItem(
+                        text = { Text(text = endpoint) },
+                        onClick = {
+                            selectedEndpoint.value = endpoint
+                            personRepository.getPeopleByGender(
+                                endpoint,
+                                numberOfPeople
+                            ) { filteredPeople ->
+                                person.value = filteredPeople
+                            }
+                            expanded.value = false
+                        }
+                    )
+                }
+            }
         }
     }
 }
