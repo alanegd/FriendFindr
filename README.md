@@ -18,22 +18,22 @@ dependencies {
   // INICIO DE DEPENDENCIAS ADICIONALES
 
   // NAVIGATION
-  val navVersion = "2.7.2"
-  implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
-  implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
-  implementation("androidx.navigation:navigation-compose:$navVersion")
+    val navVersion = "2.7.7"
+    implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-ui-ktx:$navVersion")
+    implementation("androidx.navigation:navigation-compose:$navVersion")
 
   // HTTP CLIENT: Retrofit
-  val retrofitVersion = "2.9.0"
-  implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
-  implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+    val retrofitVersion = "2.11.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
 
   // IMAGE
-  val glideVersion = "2.2.8"
-  implementation("com.github.skydoves:landscapist-glide:$glideVersion")
+    val glideVersion = "2.3.3"
+    implementation("com.github.skydoves:landscapist-glide:$glideVersion")
 
   // ROOM - ORM FRAMEWORK
-  val room_version = "2.5.2"
+  val room_version = "2.6.1"
   implementation("androidx.room:room-runtime:$room_version")
   annotationProcessor("androidx.room:room-compiler:$room_version")
   // To use Kotlin annotation processing tool (kapt)
